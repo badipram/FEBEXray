@@ -41,7 +41,7 @@ def predict():
         cv2.imwrite(enhanced_path, enhanced_img)
         enhanced_b64 = img_to_base64(enhanced_path)
 
-        # 3. Bounding box image
+        # 3. Bounding box image & detection info
         results = model(file_path)
         result = results[0]
         plot_img = result.plot()  # numpy array (BGR)
@@ -49,16 +49,25 @@ def predict():
         cv2.imwrite(pred_path, plot_img)
         pred_b64 = img_to_base64(pred_path)
 
+        # Detection info
+        detection_info = []
+        for box in result.boxes:
+            detection_info.append({
+                "confidence": float(box.conf[0]),
+                "bbox": [float(x) for x in box.xyxy[0].tolist()]
+            })
+
         # Optional: clean up files
         os.remove(file_path)
         os.remove(enhanced_path)
         os.remove(pred_path)
 
-        # Return all images as base64
+        # Return all images as base64 + detection info
         return jsonify({
             "original": original_b64,
             "enhanced": enhanced_b64,
-            "predicted": pred_b64
+            "predicted": pred_b64,
+            "detection_info": detection_info
         })
     except Exception as e:
         print("❌ Error during prediction:", e)

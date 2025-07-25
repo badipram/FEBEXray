@@ -40,3 +40,36 @@
 .read-the-docs {
   color: #888;
 }
+
+.container {
+  max-width: 3000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.result-images {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 24px;
+}
+
+.result-images > div {
+  text-align: center;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table thead {
+  background-color: red;
+}
+
+table tbody {
+  background-color: skyblue;
+}

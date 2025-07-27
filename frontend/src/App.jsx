@@ -4,7 +4,7 @@ import './App.css';
 function App() {
   const [preview, setPreview] = useState('https://via.placeholder.com/400x300?text=Upload+X-ray+Image');
   const [loading, setLoading] = useState(false);
-  const [resultText, setResultText] = useState('Prediction result will appear here.');
+  const [resultText, setResultText] = useState('');
   const [error, setError] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [detectionInfo, setDetectionInfo] = useState([]);
@@ -28,7 +28,7 @@ function App() {
     setOriginalImg(null);
     setEnhancedImg(null);
     setPredictedImg(null);
-    setResultText('Prediction result will appear here.');
+    setResultText('');
     setError(false);
   };
 
@@ -145,7 +145,12 @@ function App() {
   </>
   
 ) : (
-  <img id="preview" src={preview} alt="Preview" />
+  <div className="preview-card">
+    {selectedFile && preview && (
+      <img src={preview} style={{ maxWidth: 350, borderRadius: 8, boxShadow: '0 2px 8px rgba(0,0,0,0.07)' }} />
+    )}
+    <div style={{ textAlign: 'center', marginTop: 8, color: '#555', fontWeight: 500 }}>Preview will appear here </div>
+  </div>
 )}
 
       <div id="result" style={{ color: error ? 'red' : '#28a745' }}>{resultText}</div>

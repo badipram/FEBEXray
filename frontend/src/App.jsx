@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './App.css';
+import Navbar from './navbar';
 
 function App() {
   const [preview, setPreview] = useState('https://via.placeholder.com/400x300?text=Upload+X-ray+Image');
@@ -82,6 +83,8 @@ function App() {
   };
 
   return (
+    <>
+    <Navbar />
     <div className="container">
       <h1>Aplikasi Konstruksi Citra</h1>
       <form onSubmit={handleSubmit}>
@@ -98,7 +101,7 @@ function App() {
           <p>Processing...</p>
         </div>
       )}
-
+    
       {/* Tampilkan tiga gambar hasil jika sudah ada */}
 {!loading && originalImg && enhancedImg && predictedImg ? (
   <>
@@ -161,6 +164,7 @@ function App() {
         </button>
       )}
     </div>
+    </>
   );
 }
 

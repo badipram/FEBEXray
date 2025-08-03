@@ -7,8 +7,37 @@
 
 
 body {
-  background: #D2C1B6
+      margin: 0;
+      padding: 0;
+      font-family: 'poppins', sans-serif;
+      background: linear-gradient(to bottom, #D2C1B6, #A3968E, #6C635E);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+h1 {
+      color: #1B3C53;
+      margin-bottom: 20px;
+    }
+
+h3 {
+  color: #1B3C53;
 }
+
+p {
+  color: #1B3C53;
+}
+
+
+input[type="file"] {
+      margin: 20px 0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+    }
 
 .card {
   padding: 2em;
@@ -22,12 +51,35 @@ button {
   background: #1B3C53;
 }
 
+button {
+      background: #1B3C53;;
+      color: #F9F3EF;
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #456882;
+      color: #F9F3EF;
+    }
+
 .container {
   max-width: 3000px;
   margin: 0 auto;
   padding: 20px;
   background: #F9F3EF;
+  padding: 30px 40px;
+  border-radius: 16px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  text-align: center;
+  animation: fadeIn 0.6s ease-in-out;
 }
+
+
 
 .result-images {
   display: flex;
@@ -45,23 +97,6 @@ button {
 .result-images div img {
   border-radius: 5%;
 }
-
-/* table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-  font-size: large;
-}
-
-table thead {
-  background-color: #D2C1B6;
-}
-
-table tbody {
-  background-color: #456882;
-  color: #D2C1B6;
-} */
-
 
 
   table {
@@ -119,6 +154,29 @@ table tbody {
   border-radius: 8px;
 }
 
+    #preview {
+      margin-top: 25px;
+      display: block;
+      max-width: 100%;
+      max-height: 360px;
+      border: 3px solid #ddd;
+      border-radius: 10px;
+      object-fit: contain;
+      animation: fadeIn 0.4s ease;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      
+    }
+
+#result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #28a745;
+      min-height: 24px;
+    }
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -153,3 +211,12 @@ table tbody {
 .navbar-link:hover {
   color: #90caf9;
 }
+
+ @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    @keyframes spin {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }

@@ -11,6 +11,7 @@ function App() {
   const [error, setError] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [detectionInfo, setDetectionInfo] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const [originalImg, setOriginalImg] = useState(null);
   const [enhancedImg, setEnhancedImg] = useState(null);
@@ -40,6 +41,7 @@ function App() {
 
     setResultText('');
     setError(false);
+    setLoading(true);
 
     const formData = new FormData();
     formData.append('image', selectedFile);
@@ -66,13 +68,17 @@ function App() {
       setResultText('❌ Prediction failed.');
       setError(true);
       console.error(err);
+    } finally {
+      // await new Promise(resolve => setTimeout(resolve, 1000));
+      setLoading(false);
     }
   };
 
   return (
     <div className="container">
-      <h1>Aplikasi Konstruksi Citra</h1>
-      <FormUpload onSubmit={handleSubmit} onFileChange={handleChange} />
+      <h1>Kontruksi Citra X-ray</h1>
+      <h3>Masukan gambar untuk mendapatkan hasil prediksi</h3>
+      <FormUpload onSubmit={handleSubmit} onFileChange={handleChange} loading={loading} />
 
       {originalImg && enhancedImg && predictedImg ? (
         <>

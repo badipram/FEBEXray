@@ -55,7 +55,7 @@ button {
       background: #1B3C53;;
       color: #F9F3EF;
       padding: 12px 24px;
-      font-size: 16px;
+      font-size: 20px;
       border: none;
       border-radius: 6px;
       cursor: pointer;
@@ -103,8 +103,8 @@ button {
     border-collapse: collapse;
     width: 100%;
     margin-top: 20px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 17px;
+    font-family: 'poppins', sans-serif;
+    font-size: 16px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     border-radius: 10px;

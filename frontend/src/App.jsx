@@ -5,6 +5,9 @@ import ImagePreview from './components/ImagePreview';
 import ResultImages from './components/ResultImages';
 import DetectionInfo from './components/DetectionInfo';
 import Navbar from './components/navbar';
+import HeroSection from './components/heroSection';
+import About from './components/about';
+import Technology from './components/technology';
 
 function App() {
   const [preview, setPreview] = useState('https://via.placeholder.com/400x300?text=Upload+X-ray+Image');
@@ -79,6 +82,9 @@ function App() {
     <>
     <div className="main-content">
     <Navbar />
+    <HeroSection />
+    <About />
+    <Technology />
 
       <div className="container">
         <h1>Kontruksi Citra X-ray</h1>

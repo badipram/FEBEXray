@@ -1,20 +1,21 @@
-import React from "react";
-import "./App.css";
-
-function Navbar() {
+const Navbar = () => {
   return (
+    <>
     <nav className="navbar">
-      <div className="navbar-title">
-        {/* <i className="fa-solid fa-x-ray" style={{ marginRight: 8 }}></i> */}
-        Aplikasi Konstruksi Citra
-      </div>
-      <div className="navbar-links">
-        <a href="#" className="navbar-link">Home</a>
-        <a href="#history" className="navbar-link">Riwayat</a>
-        {/* Tambah link lain jika perlu */}
-      </div>
+        <div className="navbar-brand">
+          <img src="../public/logo.png" alt="Logo" className="logo" />
+          <h1 className="logo-name">RekoMed</h1>
+        </div>
+        <ul className="navbar-links">
+          <li><a href="#beranda">Beranda</a></li>
+          <li><a href="#tentang">Tentang</a></li>
+          <li><a href="#teknologi">Teknologi</a></li>
+          <li><a href="#rekonstruksi">Rekonstruksi</a></li>
+        </ul>
     </nav>
-  );
+    
+    </>
+  )
 }
 
 export default Navbar;

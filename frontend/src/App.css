@@ -1,12 +1,16 @@
 #root {
   max-width: 1600px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
   text-align: center;
 }
 
 .main-content {
   padding-top: 64px;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 
@@ -244,7 +248,37 @@
 
 
 
-/* Global Styles */
+/* Footer */
+
+.footer {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: #456882;
+  box-shadow: 2px 4px 2px rgba(0,0,0,0.5);
+  display: flex;
+  padding: 0 40px;
+  height: 64px;
+  z-index: 1000;
+}
+
+.footer-content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.footer-content p {
+  color: #F9F3EF;
+  text-align: center;
+}
+
+
+
+/* Form Styles */
 
 body {
   margin: 0;
@@ -255,6 +289,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  margin-bottom: 80px;
 }
 
 h1 {
@@ -276,15 +311,11 @@ input[type="file"] {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  background-color: #f9f9f9;
+  background-color: #F9F3EF;
 }
 
 .card {
   padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }
 
 button {
@@ -292,10 +323,10 @@ button {
 }
 
 button {
-  background: #1B3C53;;
+  background: #1B3C53;
   color: #F9F3EF;
   padding: 12px 24px;
-  font-size: 20px;
+  font-size: 17px;
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -303,8 +334,8 @@ button {
 }
 
 button:hover {
-  background: #456882;
-  color: #F9F3EF;
+  background: #D2C1B6;
+  color: #1B3C53;
 }
 
 .container {

@@ -8,6 +8,7 @@ import Navbar from './components/navbar';
 import HeroSection from './components/heroSection';
 import About from './components/about';
 import Technology from './components/technology';
+import Footer from './components/footer';
 
 function App() {
   const [preview, setPreview] = useState('https://via.placeholder.com/400x300?text=Upload+X-ray+Image');
@@ -80,8 +81,9 @@ function App() {
 
   return (
     <>
-    <div className="main-content">
     <Navbar />
+    <div className="main-content">
+    
     <HeroSection />
     <About />
     <Technology />
@@ -106,7 +108,9 @@ function App() {
 
         <div id="result" style={{ color: error ? 'red' : '#28a745' }}>{resultText}</div>
       </div>
+      
     </div>
+    <Footer />
     </>
     
   );

@@ -2,7 +2,7 @@ import { aboutItems } from '../assets/dummy.js';
 
 const About  = () => {
     return (
-        <div className="about-container">
+        <div id="about" className="about-container">
             <div className="about-title">
                 <h1>Tentang RekoMed</h1>
                 <h3>Sistem rekonstruksi dan deteksi citra X-ray berbasis kecerdasan buatan yang membantu proses <br /> identifikasi terhadap anomali pada citra medis</h3>

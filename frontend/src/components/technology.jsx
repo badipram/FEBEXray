@@ -2,7 +2,7 @@ import { technologyItems } from "../assets/dummy"
 
 const Technology = () => {
     return (
-        <div className="technology-container">
+        <div id="technology" className="technology-container">
             <div className="technology-title">
                 <h1>Teknologi yang Digunakan</h1>
                 <h3>Stack teknologi modern dan terpercaya untuk performa optimal dalam analisis dan rekonstruksi citra medis.</h3>

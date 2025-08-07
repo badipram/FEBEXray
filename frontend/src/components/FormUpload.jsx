@@ -1,6 +1,6 @@
 function FormUpload({ onSubmit, onFileChange, loading }) {
   return (
-    <form onSubmit={onSubmit}>
+    <form id="rekonstruksi" onSubmit={onSubmit}>
       <input type="file" accept="image/*" required onChange={onFileChange} />
       <br />
 

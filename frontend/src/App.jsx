@@ -4,6 +4,10 @@ import FormUpload from './components/FormUpload';
 import ImagePreview from './components/ImagePreview';
 import ResultImages from './components/ResultImages';
 import DetectionInfo from './components/DetectionInfo';
+import Navbar from './components/navbar';
+import HeroSection from './components/heroSection';
+import About from './components/about';
+import Technology from './components/technology';
 
 function App() {
   const [preview, setPreview] = useState('https://via.placeholder.com/400x300?text=Upload+X-ray+Image');
@@ -75,26 +79,38 @@ function App() {
   };
 
   return (
-    <div className="container">
-      <h1>Kontruksi Citra X-ray</h1>
-      <h3>Masukan gambar untuk mendapatkan hasil prediksi</h3>
-      <FormUpload onSubmit={handleSubmit} onFileChange={handleChange} loading={loading} />
+    <>
+    <Navbar />
+    <div className="main-content">
+    
+    <HeroSection />
+    <About />
+    <Technology />
 
-      {originalImg && enhancedImg && predictedImg ? (
-        <>
-          <ResultImages
-            originalImg={originalImg}
-            enhancedImg={enhancedImg}
-            predictedImg={predictedImg}
-          />
-          <DetectionInfo detectionInfo={detectionInfo} />
-        </>
-      ) : (
-        <ImagePreview selectedFile={selectedFile} preview={preview} />
-      )}
+      <div className="container">
+        <h1>Kontruksi Citra X-ray</h1>
+        <h3>Masukan gambar untuk mendapatkan hasil prediksi</h3>
+        <FormUpload onSubmit={handleSubmit} onFileChange={handleChange} loading={loading} />
 
-      <div id="result" style={{ color: error ? 'red' : '#28a745' }}>{resultText}</div>
+        {originalImg && enhancedImg && predictedImg ? (
+          <>
+            <ResultImages
+              originalImg={originalImg}
+              enhancedImg={enhancedImg}
+              predictedImg={predictedImg}
+            />
+            <DetectionInfo detectionInfo={detectionInfo} />
+          </>
+        ) : (
+          <ImagePreview selectedFile={selectedFile} preview={preview} />
+        )}
+
+        <div id="result" style={{ color: error ? 'red' : '#28a745' }}>{resultText}</div>
+      </div>
+      
     </div>
+    </>
+    
   );
 }
 

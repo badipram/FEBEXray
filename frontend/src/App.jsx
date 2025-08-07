@@ -8,7 +8,6 @@ import Navbar from './components/navbar';
 import HeroSection from './components/heroSection';
 import About from './components/about';
 import Technology from './components/technology';
-import Footer from './components/footer';
 
 function App() {
   const [preview, setPreview] = useState('https://via.placeholder.com/400x300?text=Upload+X-ray+Image');
@@ -110,7 +109,6 @@ function App() {
       </div>
       
     </div>
-    <Footer />
     </>
     
   );

@@ -320,13 +320,10 @@ input[type="file"] {
 
 button {
   background: #1B3C53;
-}
-
-button {
-  background: #1B3C53;
   color: #F9F3EF;
   padding: 12px 24px;
   font-size: 17px;
+  margin-left: 10px;
   border: none;
   border-radius: 6px;
   cursor: pointer;

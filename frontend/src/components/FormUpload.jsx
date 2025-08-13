@@ -1,10 +1,11 @@
-function FormUpload({ onSubmit, onFileChange, loading }) {
+function FormUpload({ onSubmit, onFileChange, loading, onDownload, showDownload }) {
   return (
     <form id="rekonstruksi" onSubmit={onSubmit}>
       <input type="file" accept="image/*" required onChange={onFileChange} />
       <br />
 
-      {loading ? (
+      <div className="buttons">
+        {loading ? (
         <button type="button" disabled>
           <i className="fa-solid fa-spinner fa-spin"></i> Processing
         </button>
@@ -13,6 +14,12 @@ function FormUpload({ onSubmit, onFileChange, loading }) {
           <i className="fa-solid fa-magnifying-glass"></i> Process
         </button>
       )}
+      {showDownload && !loading && (
+        <button type="button" onClick={onDownload}>
+          <i className="fa-solid fa-download"></i> Download Hasil
+        </button>
+      )}
+      </div>
     </form>
   );
 }

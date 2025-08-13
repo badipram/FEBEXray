@@ -1,5 +1,9 @@
-import { useState } from 'react';
 import './App.css';
+import { useState, useEffect } from 'react';
+import { predictImage } from './services/api';
+import { generatePDF } from './utils/pdfUtils';
+import { getFilePreview, resetPredictionState } from './utils/fileUtils';
+import { savePrediction, loadPrediction, clearPrediction } from './utils/storage';
 import FormUpload from './components/FormUpload';
 import ImagePreview from './components/ImagePreview';
 import ResultImages from './components/ResultImages';
@@ -21,68 +25,68 @@ function App() {
   const [enhancedImg, setEnhancedImg] = useState(null);
   const [predictedImg, setPredictedImg] = useState(null);
 
-  const handleChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setSelectedFile(file);
-      const reader = new FileReader();
-      reader.onload = (event) => setPreview(event.target.result);
-      reader.readAsDataURL(file);
-    } else {
-      setPreview('https://via.placeholder.com/400x300?text=Upload+X-ray+Image');
+  useEffect(() => {
+    const data = loadPrediction();
+    if (data) {
+      setOriginalImg(data.original);
+      setEnhancedImg(data.enhanced);
+      setPredictedImg(data.predicted);
+      setDetectionInfo(data.detectionInfo);
+      setResultText(data.resultText);
     }
+  }, []);
 
-    setOriginalImg(null);
-    setEnhancedImg(null);
-    setPredictedImg(null);
-    setResultText('');
-    setError(false);
-  };
+  const handleDownload = () => {
+    generatePDF(predictedImg, detectionInfo);
+  }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!selectedFile) return;
+  const handleChange = async (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    setSelectedFile(file);
+    setPreview(await getFilePreview(file));
+  } else {
+    setPreview('https://via.placeholder.com/400x300?text=Upload+X-ray+Image');
+  }
 
-    setResultText('');
-    setError(false);
-    setLoading(true);
+  clearPrediction();
+  resetPredictionState({ setOriginalImg, setEnhancedImg, setPredictedImg, setResultText, setError });
+};
 
-    const formData = new FormData();
-    formData.append('image', selectedFile);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (!selectedFile) return;
 
-    try {
-      const response = await fetch('http://127.0.0.1:5050/predict', {
-        method: 'POST',
-        body: formData,
-      });
+  setResultText('');
+  setError(false);
+  setLoading(true);
 
-      if (response.ok) {
-        const data = await response.json();
-        setOriginalImg(`data:image/jpeg;base64,${data.original}`);
-        setEnhancedImg(`data:image/jpeg;base64,${data.enhanced}`);
-        setPredictedImg(`data:image/jpeg;base64,${data.predicted}`);
-        setDetectionInfo(data.detection_info || []);
-        setError(false);
-      } else {
-        const data = await response.json();
-        setResultText(`❌ Error: ${data.error || 'Prediction failed.'}`);
-        setError(true);
-      }
-    } catch (err) {
-      setResultText('❌ Prediction failed.');
-      setError(true);
-      console.error(err);
-    } finally {
-      // await new Promise(resolve => setTimeout(resolve, 1000));
-      setLoading(false);
-    }
-  };
+  try {
+    const data = await predictImage(selectedFile);
+
+    const ori = `data:image/jpeg;base64,${data.original}`;
+    const enh = `data:image/jpeg;base64,${data.enhanced}`;
+    const pred = `data:image/jpeg;base64,${data.predicted}`;
+
+    setOriginalImg(ori);
+    setEnhancedImg(enh);
+    setPredictedImg(pred);
+    setDetectionInfo(data.detection_info || []);
+    setResultText('✅ Prediction Completed');
+
+    savePrediction(data);
+  } catch (err) {
+    setResultText(`❌ ${err.message}`);
+    setError(true);
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <>
     <Navbar />
     <div className="main-content">
-    
     <HeroSection />
     <About />
     <Technology />
@@ -90,7 +94,12 @@ function App() {
       <div className="container">
         <h1>Kontruksi Citra X-ray</h1>
         <h3>Masukan gambar untuk mendapatkan hasil prediksi</h3>
-        <FormUpload onSubmit={handleSubmit} onFileChange={handleChange} loading={loading} />
+        <FormUpload
+        onSubmit={handleSubmit}
+        onFileChange={handleChange}
+        loading={loading}
+        onDownload={handleDownload}
+        showDownload={originalImg && enhancedImg && predictedImg} />
 
         {originalImg && enhancedImg && predictedImg ? (
           <>

@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { predictImage } from './services/api';
 import { generatePDF } from './utils/pdfUtils';
 import { getFilePreview, resetPredictionState } from './utils/fileUtils';
-import { savePrediction, loadPrediction, clearPrediction } from './utils/storage';
 import FormUpload from './components/FormUpload';
 import ImagePreview from './components/ImagePreview';
 import ResultImages from './components/ResultImages';
@@ -26,21 +25,32 @@ function App() {
   const [predictedImg, setPredictedImg] = useState(null);
 
   useEffect(() => {
-    const data = loadPrediction();
-    if (data) {
-      setOriginalImg(data.original);
-      setEnhancedImg(data.enhanced);
-      setPredictedImg(data.predicted);
-      setDetectionInfo(data.detectionInfo);
-      setResultText(data.resultText);
-    }
+    const fetchLastPrediction = async () => {
+      try {
+        const rest = await fetch('http://127.0.0.1:5050/last-prediction');
+        const data = await rest.json();
+        if (data && data.detection_info) {
+          setDetectionInfo(data.detection_info);
+          setResultText(data.result_text || '');
+          setOriginalImg(data.original ? `data:image/jpeg;base64,${data.original}` : null);
+          setEnhancedImg(data.enhanced ? `data:image/jpeg;base64,${data.enhanced}` : null);
+          setPredictedImg(data.predicted ? `data:image/jpeg;base64,${data.predicted}` : null);
+        }
+      } catch (err) {
+        console.error("Error fetching last prediction:", err);
+      }
+    };
+    fetchLastPrediction();
   }, []);
 
   const handleDownload = () => {
     generatePDF(predictedImg, detectionInfo);
   }
 
-  const handleChange = async (e) => {
+const handleChange = async (e) => {
+  // Reset backend (hapus hasil lama)
+  await fetch('http://127.0.0.1:5050/reset-prediction', { method: 'POST' });
+
   const file = e.target.files[0];
   if (file) {
     setSelectedFile(file);
@@ -48,8 +58,6 @@ function App() {
   } else {
     setPreview('https://via.placeholder.com/400x300?text=Upload+X-ray+Image');
   }
-
-  clearPrediction();
   resetPredictionState({ setOriginalImg, setEnhancedImg, setPredictedImg, setResultText, setError });
 };
 
@@ -72,9 +80,7 @@ const handleSubmit = async (e) => {
     setEnhancedImg(enh);
     setPredictedImg(pred);
     setDetectionInfo(data.detection_info || []);
-    setResultText('✅ Prediction Completed');
 
-    savePrediction(data);
   } catch (err) {
     setResultText(`❌ ${err.message}`);
     setError(true);

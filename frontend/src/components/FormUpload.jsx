@@ -16,7 +16,7 @@ function FormUpload({ onSubmit, onFileChange, loading, onDownload, showDownload 
       )}
       {showDownload && !loading && (
         <button type="button" onClick={onDownload}>
-          <i className="fa-solid fa-download"></i> Download Hasil
+          <i className="fa-solid fa-download"></i> Unduh Hasil
         </button>
       )}
       </div>
